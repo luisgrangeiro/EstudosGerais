@@ -1,10 +1,6 @@
-/*
-	Teste de um analisador léxico básico que reconhece operações aritméticas.
-	Baseado nos exemplos do livo Conceitos de linguagem de programação do Robert Sebesta.
-	
-	Lê um arquivo chamado compiler.in e separa os tokens e lexemas.	
-
-*/
+/*	Teste de um analisador lÃ©xico bÃ¡sico que reconhece operaÃ§Ãµes aritmÃ©ticas.
+	Baseado nos exemplos do livo Conceitos de linguagem de programaÃ§Ã£o do Robert Sebesta.	
+	LÃª um arquivo chamado compiler.in e separa os tokens e lexemas.	*/
 
 
 #include <stdio.h>
@@ -18,7 +14,6 @@ int token;
 int nextToken;
 FILE *in_fp, *fopen();
 
-/*Declaração de funções*/
 void addChar();
 void getChar();
 void getNonBlank();
@@ -49,7 +44,6 @@ int main(int argc, char *argv[]) {
 	}	
 	return 0;
 }
-
 int lookup(char ch){
 	switch(ch){
 		case '(':
@@ -83,7 +77,6 @@ int lookup(char ch){
 	}
 	return nextToken;
 }
-
 void addChar(){
 	if(lexLen <= 98){
 		lexeme[lexLen++] = nextChar;
@@ -92,7 +85,6 @@ void addChar(){
 	else 
 		printf("ERROR - lexeme is too long \n");
 }
-
 void getChar(){
 	if((nextChar = getc(in_fp)) != EOF){
 		if(isalpha(nextChar))
@@ -105,12 +97,10 @@ void getChar(){
 	else
 		charClass = EOF;	
 }
-
 void getNonBlank(){
 	while(isspace(nextChar))
 		getChar();
 }
-
 int lex() {
 	lexLen = 0;
 	getNonBlank();
@@ -123,8 +113,7 @@ int lex() {
 				getChar();
 			}
 		nextToken = IDENT;
-		break;
-		
+		break;		
 		case DIGIT:
 			addChar();
 			getChar();
@@ -133,13 +122,11 @@ int lex() {
 				getChar();
 			}
 			nextToken = INT_LIT;
-			break;
-			
+			break;			
 		case UNKNOWN:
 			lookup(nextChar);
 			getChar();
-			break;
-			
+			break;			
 		case EOF:
 			nextToken = EOF;
 			lexeme[0] = 'E';
